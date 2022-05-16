@@ -19,11 +19,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initViewModel()
+
         buttonSubmit.setOnClickListener {
-           createUser()
+            if(isValidation()) {
+                createUser()
+            }
         }
     }
-
     private fun createUser() {
         progressBar.visibility = View.VISIBLE
         val user = User("", editUserName.text.toString(), editjob.text.toString())
@@ -41,5 +43,16 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "User Create Successfully", Toast.LENGTH_LONG).show()
             }
         })
+    }
+    private fun isValidation(): Boolean {
+        if(editUserName.text.toString().equals("")){
+            Toast.makeText(this@LoginActivity,"Please enter name",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(editjob.text.toString().equals("")){
+            Toast.makeText(this@LoginActivity,"Please enter job",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 }
